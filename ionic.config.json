@@ -1,0 +1,7 @@
+{
+  "name": "recipe-keeper",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
