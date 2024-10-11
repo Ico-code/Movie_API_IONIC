@@ -1,23 +1,56 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Home.css';
+import React from "react";
+import {
+  IonPage,
+  IonButton,
+  IonHeader,
+  IonMenuButton,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonSpinner,
+  IonItem,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonText,
+  IonList,
+  IonIcon,
+  IonLabel,
+} from "@ionic/react";
+import { Recipe } from "../hooks/useRecipeService";
+import { bookOutline } from "ionicons/icons";
 
-const Home: React.FC = () => {
+const Home: React.FC<{ recipes: Recipe[] }> = ({ recipes }) => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Blank</IonTitle>
+          <IonMenuButton slot="start" />
+          <IonTitle>Recipes</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
+      <IonContent className="ion-padding">
+        <IonList>
+          {recipes.map((recipe) => (
+            <IonItem
+              key={recipe.id}
+              routerLink={`/recipe-detail/${recipe.id}`}
+              detail
+            >
+              <IonIcon icon={bookOutline} slot="start" />
+              <IonLabel>
+                <h2>{recipe.title}</h2>
+              </IonLabel>
+            </IonItem>
+          ))}
+        </IonList>
       </IonContent>
+      <IonButton
+        expand="full"
+        routerLink="/add-recipe"
+      >
+        Add Recipe
+      </IonButton>
     </IonPage>
   );
 };
